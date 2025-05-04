@@ -1,33 +1,39 @@
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import Filtros from "../components/Filtros"
 
 const Comprar = () => {
 
-  const properties = [
-    {name:"Avenida Corrientes 348",     price:23333, img:"/properties/canal1.jpg"      , city:"Buenos Aires", owner:"AB Brokers"},
-    {name:"Avenida del Libertador 1000",price:23333, img:"/properties/libertador1.jpg" , city:"Buenos Aires", owner:"Laura Gómez"},
-    {name:"Avenida Cabildo 1500",       price:23333, img:"/properties/cabildo1.jpg"    , city:"Buenos Aires", owner:"Metro Realty"},
-    {name:"San Martín 1234",            price:23333, img:"/properties/libertadorr1.jpg", city:"Córdoba"     , owner:"Juan Pérez"}
-  ]
+  const [properties, setProperties] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/properties')
+      .then(response => response.json())
+      .then(data => setProperties(data))
+      .catch(error => console.error('Error al cargar las propiedades:', error));
+  }, [])
 
   return (
     <>
       <Filtros />
 
-      <div className="w-full my-3 px-3 flex flex-col gap-3 md:px-10 lg:px-20 lg:grid lg:grid-cols-3">
+      <div className="w-full my-3 px-3 flex flex-col gap-5 md:px-10 lg:px-20 lg:grid lg:grid-cols-3">
 
-        {properties.map((property, index) => (
-          <Link to='/article'>
-            <article className="bg-zinc-100 rounded-lg justify-between h-[20vh] w-full flex gap-1 text-zinc-800 text-sm">
+        {properties.filter(property => property.type === 1).map((property, index) => (
+          <Link to={`/article/${property.id}`} key={property.id}>
+            <article className="bg-zinc-100 justify-between h-[20vh] w-full flex gap-1 text-zinc-800 text-sm hover:scale-105 duration-300">
+
+              <img src={`http://localhost:5000${property.principalImage}`} className="w-1/2  object-cover object-center" />
               
-              <div className="p-2 flex flex-col justify-between">
+              <div className="p-2 flex flex-col justify-between w-1/2">
                 <span>${property.price}</span>
-                <h2>{property.name}</h2>
+                <h2>{property.adress}</h2>
                 <h3 className="text-zinc-600">{property.city}</h3>
-                <h4>{property.owner}</h4>
+                <p className="text-xs truncate">{property.description}</p>
+                <h4>{property.personalName}</h4>
               </div>
-              <img src={property.img} className="w-1/2 rounded-lg object-cover object-center" />
+              
             </article>
           </Link>
         ))}

@@ -12,7 +12,7 @@ const Map = () => {
       <MapContainer center={position} 
                       zoom={13      }
                zoomControl={false   }
-                     style={{height: '80vh', width: '100%', borderRadius: '12px'}}>
+                     style={{height: '80vh', width: '100%'}}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://hot.openstreetmap.org">Humanitarian OSM Team</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

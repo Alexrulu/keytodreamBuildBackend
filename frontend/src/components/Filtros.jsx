@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Filtros = () => {
 
@@ -10,30 +10,30 @@ const Filtros = () => {
     <>
       <div className="px-3 w-full flex flex-col gap-3 md:px-10 lg:px-20">
 
-        <div className='flex flex-col gap-3 lg:py-1 lg:grid lg:grid-cols-3'>
-          <div className="w-full px-3 py-1 bg-zinc-100 rounded-lg flex items-center justify-between lg:col-span-2 lg:order-2">
+        <div className='flex flex-col gap-5 lg:py-1 lg:grid lg:grid-cols-3'>
+          <div className="w-full px-3 py-1 bg-zinc-100  flex items-center justify-between lg:col-span-2 lg:order-2">
             <input type="search" placeholder="Buscar..." className="outline-none w-full" />
             <i className="fa-solid fa-magnifying-glass text-zinc-500"/>
           </div>
   
           <div className="flex items-center justify-between lg:gap-3 lg:col-start-1 lg:col-span-1">
-            <span onClick={() => setIsOpen(!isOpen)}>Filtros<i className="fa-solid fa-angle-down ml-2"/></span>
-            <Link to="/map" className="bg-zinc-100 rounded-lg py-1 px-2">Ver mapa</Link>
+            <span onClick={() => setIsOpen(!isOpen)} className='cursor-pointer bg-zinc-100 py-1 px-2  duration-100 active:translate-y-1'>Filtros<i className="fa-solid fa-angle-down ml-2"/></span>
+            <Link to="/map" className="bg-zinc-100  py-1 px-2 hover:bg-zinc-200 duration-300">Ver mapa</Link>
           </div>
         </div>
 
         <AnimatePresence>
           {isOpen && (
             <motion.div className='absolute z-10 w-full top-33 left-0 px-5 pb-5 flex flex-col gap-3 text-zinc-700 origin-top-left
-                      bg-white border-b border-zinc-300 shadow-xl md:px-10 lg:left-20 lg:w-1/3 lg:rounded-lg lg:border-zinc-100 lg:border lg:top-25'
+                      bg-white border-b border-zinc-300 shadow-xl md:px-10 lg:left-20 lg:w-1/3 lg: lg:border-zinc-100 lg:border lg:top-25'
                           initial={{scaleY:0,scaleX:0, clipPath:'circle(0%   at 0% 0%)'}}
                           animate={{scaleY:1,scaleX:1, clipPath:'circle(150% at 0% 0%)'}}
                              exit={{scaleY:0,scaleX:0, clipPath:'circle(0%   at 0% 0%)'}}
                        transition={{duration:0.5}}>
 
-              <div className='flex gap-2 justify-around mt-2 border border-zinc-200 rounded-lg py-1'>
-                <Link to="/alquilar">Alquilar</Link>
-                <Link to="/comprar">Comprar</Link>
+              <div className='flex gap-2 justify-around mt-2 border border-zinc-200  py-1'>
+                <NavLink to="/alquilar" className={({isActive}) => isActive ? 'bg-black text-white px-2 py-1 ' : 'px-2 py-1 hover:bg-zinc-200 duration-300 '}>Alquilar</NavLink>
+                <NavLink to="/comprar" className={({isActive}) => isActive ? 'bg-black text-white px-2 py-1 ' : 'px-2 py-1 hover:bg-zinc-200 duration-300 '}>Comprar</NavLink>
               </div>
   
               <p>Baños</p>

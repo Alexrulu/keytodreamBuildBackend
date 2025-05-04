@@ -24,10 +24,10 @@ const Hero = () => {
   
           <div className="flex flex-col items-center justify-center gap-5 translate-y-[-2vh]">
             <div className="flex items-center justify-between w-60 gap-5">
-              <Link to="/alquilar" className="text-center bg-black text-white py-1 w-full px-2 rounded-lg">Alquilar</Link>
-              <Link to="/comprar" className="text-center py-1 px-2 bg-zinc-100 w-full rounded-lg">Comprar</Link>
+              <Link to="/alquilar" className="text-center bg-black text-white py-1 w-full px-2 ">Alquilar</Link>
+              <Link to="/comprar" className="text-center py-1 px-2 bg-zinc-100 w-full ">Comprar</Link>
             </div>
-            <div className="flex items-center justify-center w-60 rounded-lg mx-auto shadow-inner border border-zinc-200 py-1">
+            <div className="flex items-center justify-center w-60 bg-white mx-auto shadow-inner border border-zinc-200 py-1">
               <input type="search" placeholder="Explorar..." className="outline-none" />
               <i className="fa-solid fa-magnifying-glass text-zinc-500"/>
             </div>
@@ -44,10 +44,10 @@ const Hero = () => {
           <h1 className="text-6xl font-bold leading-tight">Encuentra<br />tu hogar ideal</h1>
           <h2 className="text-lg text-zinc-700">Más de 10,000 propiedades a tu alcance.</h2>
           <div className="flex gap-3">
-            <Link to="/alquilar" className="bg-black text-white px-4 py-2 rounded-lg shadow-xl hover:bg-zinc-800 duration-300">Alquilar</Link>
-            <Link to="/comprar" className="px-4 py-2 rounded-md hover:bg-zinc-200 duration-300">Comprar</Link>
+            <Link to="/alquilar" className="bg-black text-white px-4 py-2  shadow-xl hover:bg-zinc-800 duration-300">Alquilar</Link>
+            <Link to="/comprar" className="px-4 py-2  hover:bg-zinc-200 duration-300">Comprar</Link>
           </div>
-          <div className="flex items-center bg-white border border-zinc-200 w-[30vw] rounded-md px-4 py-2 shadow-inner duration-300">
+          <div className="flex items-center bg-white border border-zinc-200 w-[30vw]  px-4 py-2 shadow-inner duration-300">
             <input type="text" placeholder="Explorar..." className="outline-none w-full text-sm" />
             <i className="fa-solid fa-magnifying-glass text-zinc-500 ml-2" />
           </div>

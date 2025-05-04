@@ -11,6 +11,11 @@ import Article  from "./pages/Article.jsx"
 import Register from "./pages/Register.jsx"
 import Login    from "./pages/Login.jsx"
 import Map      from "./pages/Map.jsx"
+import Admin    from "./pages/Admin.jsx"
+import Post     from "./pages/Post.jsx"
+
+import {AuthProvider} from "./components/AuthToken.jsx"
+import ParallaxBackground from "./components/ParallaxBackground.jsx"
 
 const pageTransition = {
      initial:{clipPath:'circle(0 at 50% 50%)'   },
@@ -46,7 +51,7 @@ const AnimatedRoutes = () => {
           </motion.div>
         }/>
 
-        <Route path="/article" element={
+        <Route path="/article/:id" element={
           <motion.div {...pageTransition}>
             <Article />
           </motion.div>
@@ -70,6 +75,18 @@ const AnimatedRoutes = () => {
           </motion.div>
         }/>
 
+        <Route path="/admin" element={
+          <motion.div {...pageTransition}>
+            <Admin />
+          </motion.div>
+        }/>
+
+        <Route path="/post" element={
+          <motion.div {...pageTransition}>
+            <Post />
+          </motion.div>
+        }/>
+
       </Routes>
     </AnimatePresence>
   )
@@ -77,10 +94,13 @@ const AnimatedRoutes = () => {
 
 const App = () => {
   return(
-    <BrowserRouter>
-      <Header />
-      <AnimatedRoutes />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Header />
+        <ParallaxBackground />
+        <AnimatedRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 export default App
