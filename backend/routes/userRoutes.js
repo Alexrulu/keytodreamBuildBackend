@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Registro de nuevos usuarios
+//REGISTRAR USUARIOS
 router.post('/register', async (req, res) => {
   const {
     userType,
@@ -61,7 +61,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login de usuario
+//LOGIN DE USUARIO
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Usuario en sesion
+//USUARIO EN SESION
 router.get('/me', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1]; // Extrae el token del encabezado
 
@@ -118,6 +118,63 @@ router.get('/me', async (req, res) => {
   } catch (error) {
     console.error('Error al verificar el token:', error);
     return res.status(401).json({ error: 'Token inválido o expirado' });
+  }
+});
+
+
+//MODIFICAR USUARIO
+router.put('/edit', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'Usuario no autenticado' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.id);
+    if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+    const {
+      name, email, phone, dni, favoritos
+    } = req.body;
+    await user.update({
+      name, email, phone, dni, favoritos
+    });
+    res.status(200).json({ message: 'Usuario actualizado correctamente', user });
+  } catch (error) {
+    console.error('Error al actualizar usuario:', error);
+    res.status(500).json({ message: 'Error al actualizar el usuario' });
+  }
+});
+
+//ELIMINAR USUARIO
+router.delete('/delete/:id', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'Usuario no autenticado' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const requestingUser = await User.findByPk(decoded.id);
+    if (!requestingUser) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+    // Si es admin
+    if (requestingUser.userType === 10) {
+      if (requestingUser.id === parseInt(req.params.id)) {
+        return res.status(400).json({ message: 'Un administrador no puede eliminarse a sí mismo' });
+      }
+      const targetUser = await User.findByPk(req.params.id);
+      if (!targetUser) return res.status(404).json({ error: 'Usuario a eliminar no encontrado' });
+      await targetUser.destroy();
+      return res.status(200).json({ message: 'Usuario eliminado correctamente por admin' });
+    }
+
+    // Si NO es admin, solo puede eliminarse a sí mismo
+    if (requestingUser.id !== parseInt(req.params.id)) {
+      return res.status(403).json({ message: 'No tienes permiso para eliminar a este usuario' });
+    }
+
+    await requestingUser.destroy();
+    res.status(200).json({ message: 'Usuario eliminado correctamente' });
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    res.status(500).json({ message: 'Error al eliminar el usuario' });
   }
 });
 

@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom"
 import { motion, AnimatePresence } from 'motion/react'
+import { ToastContainer, Zoom } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Header   from "./layout/Header.jsx"
 import Hero     from "./layout/Hero.jsx"
@@ -95,9 +97,11 @@ const AnimatedRoutes = () => {
 const App = () => {
   return(
     <AuthProvider>
+      <ToastContainer toastClassName="custom-toast" position="bottom-right" closeButton={false} hideProgressBar autoClose={1000} transition={Zoom} pauseOnHover={false}/>
       <BrowserRouter>
         <Header />
         <ParallaxBackground />
+        <div className="fixed inset-0 bg-gradient-to-b from-transparent from-30% to-white -z-10"></div>
         <AnimatedRoutes />
       </BrowserRouter>
     </AuthProvider>

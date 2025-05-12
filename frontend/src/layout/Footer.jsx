@@ -7,7 +7,7 @@ const Footer = () => {
                        initial={{x:-100    }}
                    whileInView={{x:0       }}
                       viewport={{once: true}}
-                    transition={{duration:3}}>
+                    transition={{duration:2}}>
         <span className=" h-[1px] w-8/10 bg-zinc-300"/>
         <a href="https://alexandrolucero.vercel.app/" target="_blank">Lucero Alexandro</a>
         <p>Terminos y condiciones</p>
