@@ -16,7 +16,8 @@ const PORT = process.env.PORT || 5000
 
 //API
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://keytodream-build-frontend.vercel.app',
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
